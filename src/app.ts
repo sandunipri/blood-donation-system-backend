@@ -1,6 +1,7 @@
 import express, { Express } from "express";
-import userRouter from "./routes/user.routes";
+// import userRouter from "./routes/user.routes";
 import cors from "cors";
+import authRoutes from "./routes/auth.routes";
 
 const app: Express = express();
 
@@ -20,6 +21,7 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 
-app.use("/api/user", userRouter);
+app.use("/api/auth",authRoutes)
+// app.use("/api/user", userRouter);
 
 export default app;

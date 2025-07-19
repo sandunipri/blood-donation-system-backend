@@ -4,51 +4,52 @@ const userModel = new mongoose.Schema(
     {
         firstname: {
             type: String,
-            required: true,
+            required: true
         },
         lastname: {
             type: String,
-            required: true,
+            required: true
         },
         email: {
             type: String,
             required: true,
-            unique: true,
+            unique: true
         },
         password: {
             type: String,
             required: true,
+            select: false
         },
         nic: {
             type: String,
             required: true,
-            unique: true,
+            unique: true
         },
         phone: {
             type: String,
-            required: true,
+            required: true
         },
         bloodGroup: {
             type: String,
-            required: true,
+            required: true
         },
         role: {
             type: String,
             enum: ['donor', 'recipient', 'hospital'],
-            required: true,
+            required: true
         },
         gender: {
             type: String,
             enum: ['Male', 'Female', 'Other'],
-            required: true,
+            required: true
         },
         dateOfBirth: {
             type: String,
-            required: true,
+            required: true
         },
         address: {
             type: String,
-            required: true,
+            required: true
         },
     },
 );
