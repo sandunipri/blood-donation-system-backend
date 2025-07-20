@@ -35,12 +35,12 @@ const userModel = new mongoose.Schema(
         },
         role: {
             type: String,
-            enum: ['donor', 'recipient', 'hospital'],
+            enum: ['donor', 'recipient'],
             required: true
         },
         gender: {
             type: String,
-            enum: ['Male', 'Female', 'Other'],
+            enum: ['Male', 'Female'],
             required: true
         },
         dateOfBirth: {

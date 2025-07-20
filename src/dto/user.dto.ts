@@ -6,8 +6,8 @@ export interface UserDto {
     nic: string;
     phone: string;
     bloodGroup?: string;
-    role: 'donor' | 'recipient' | 'hospital' | 'admin';
-    gender: 'Male' | 'Female' | 'Other';
+    role: 'donor' | 'recipient';
+    gender: 'Male' | 'Female';
     dateOfBirth: string;
     address: string;
 }

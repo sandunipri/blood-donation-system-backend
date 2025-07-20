@@ -34,3 +34,12 @@ export const deleteUser = async (email : string) => {
     }
     return user;
 }
+
+
+export const validateUser = (user : UserDto) => {
+    if (!user.firstname || !user.lastname || !user.email || !user.password || !user.role || !user.address || !user.nic || !user.gender || !user.bloodGroup
+        || !user.bloodGroup || !user.phone || !user.dateOfBirth) {
+        return 'All fields are required';
+    }
+    return null;
+}
