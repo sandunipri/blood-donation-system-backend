@@ -26,7 +26,7 @@ export const authenticateToken = (req:Request , res:Response , next : NextFuncti
 export const authorizeRoles = (...roles : string[]) => {
     return (req : Request, res :Response , next : NextFunction) => {
         const user = (req as Request & {user?: any}).user;
-        if (!user || !roles.includes(user)){
+        if (!user || !roles.includes(user.role)){
             res.status(403).json({error: "you do not have permission to access this resource."
             });
             return;

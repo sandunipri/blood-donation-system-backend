@@ -1,7 +1,8 @@
 import express, { Express } from "express";
-// import userRouter from "./routes/user.routes";
+import userRouter from "./routes/user.routes";
 import cors from "cors";
 import authRoutes from "./routes/auth.routes";
+import {authenticateToken} from "./middleware/auth.middleware";
 
 const app: Express = express();
 
@@ -22,6 +23,6 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/api/auth",authRoutes)
-// app.use("/api/user", userRouter);
+app.use("/api/user",authenticateToken, userRouter);
 
 export default app;
