@@ -1,25 +1,24 @@
 import {Response,Request} from "express";
 import {DonationRecordDto} from "../dto/donation.dto";
-import User from "../model/user.model";
-import { Hospital } from "../model/hospital.model";
 import * as donationService from "../services/donation.service";
+import * as userService from "../services/user.service";
+import * as hospitalService from "../services/hospital.service";
 
 export const donateBlood = async (req : Request , res : Response) => {
     const donationRecord: DonationRecordDto = req.body;
     try {
         //check email
-        const donor = await User.findOne({ email: donationRecord.donorEmail});
+        const donor = await userService.findUserEmail(donationRecord.donorEmail)
         if (!donor) {
             return res.status(404).json({ error: "Donor not found" });
         }
         //check blood group
-
         if (donor.bloodGroup !== donationRecord.bloodGroup) {
             return res.status(400).json({ error: "Blood group does not match donor's record" });
         }
 
         //check hospital
-        const hospital = await Hospital.findOne({ email: donationRecord.hospitalEmail });
+        const hospital = await hospitalService.findHospitalByEmail(donationRecord.hospitalEmail)
         if (!hospital) {
             return res.status(404).json({ error: "Hospital not found or invalid email" });
         }
