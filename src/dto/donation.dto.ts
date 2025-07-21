@@ -1,6 +1,6 @@
 export interface DonationRecordDto {
-    donorId: string;
-    hospitalId: string;
+    donorEmail: string;
+    hospitalEmail: string;
     donationDate: string;
     bloodGroup: string;
     unitsDonated: number;

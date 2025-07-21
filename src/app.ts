@@ -4,6 +4,7 @@ import cors from "cors";
 import authRoutes from "./routes/auth.routes";
 import hospitalRoutes from "./routes/hospital.routes"
 import {authenticateToken} from "./middleware/auth.middleware";
+import donationRoutes from "./routes/donation.routes";
 
 const app: Express = express();
 
@@ -26,5 +27,6 @@ app.use(express.json());
 app.use("/api/auth",authRoutes)
 app.use("/api/user",authenticateToken, userRouter);
 app.use("/api/hospital",authenticateToken,hospitalRoutes)
+app.use("/api/donation",authenticateToken,donationRoutes)
 
 export default app;

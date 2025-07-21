@@ -1,13 +1,13 @@
 import mongoose from 'mongoose';
 
 const donationSchema = new mongoose.Schema({
-        donorId: {
-            type: mongoose.Schema.Types.ObjectId,
+        donorEmail: {
+            type: String,
             ref: "user",
             required: true,
         },
-        hospitalId: {
-            type: mongoose.Schema.Types.ObjectId,
+        hospitalEmail: {
+            type: String,
             ref: "hospital",
             required: true,
         },
@@ -19,9 +19,8 @@ const donationSchema = new mongoose.Schema({
             type: Date,
             default: Date.now,
         },
-        quantity: {
+        unitsDonated: {
             type: Number,
-            default: 450,
         },
 }
 );
