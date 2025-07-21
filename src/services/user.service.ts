@@ -18,6 +18,13 @@ export const loginUser = async (email: string, password: string): Promise<UserDt
     return null;
 }*!/*/
 
+export const findUserEmail = async (email: string) => {
+    return User.findOne({ email: email});
+}
+export const findUserBloodGroup = async (bloodGroup : string) => {
+    return User.find({ bloodGroup: bloodGroup });
+}
+
 export const updateUser = async (email : string, data :UserDto)  => {
     const user = await User.findOneAndUpdate({email: email}, data, {new: true})
     if (!user){
