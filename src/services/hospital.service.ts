@@ -16,3 +16,7 @@ export const validateHospital = (hospital: HospitalDto) => {
     }
     return null;
 }
+
+export const getAllHospitals = async (): Promise<HospitalDto[]> => {
+    return Hospital.find();
+}
