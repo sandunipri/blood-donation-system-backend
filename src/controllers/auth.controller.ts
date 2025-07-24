@@ -3,6 +3,7 @@ import * as authService from '../services/auth.service';
 import { validateUser } from '../services/user.service';
 import bcrypt from "bcryptjs";
 import {validateAdmin} from "../services/admin.service";
+import {sendRegisterEmail} from "../utils/email";
 
 
 export const authenticateUser = async (req: Request, res: Response) => {
@@ -43,7 +44,7 @@ export const registerUser = async (req :Request , res: Response) => {
     try{
         const newUser = req.body;
         const validationError =validateUser(newUser);
-        if (!validationError) {
+        if (validationError) {
             res.status(400).json({error: validationError});
             return;
         }
@@ -53,6 +54,10 @@ export const registerUser = async (req :Request , res: Response) => {
         newUser.password = await bcrypt.hash(newUser.password, 10);
 
         const savedUser = await authService.registerUser(newUser);
+
+        // send email
+        await sendRegisterEmail(savedUser.email, savedUser.firstname);
+
         res.status(201).json(savedUser);
     }catch (error){
         console.log(error);
