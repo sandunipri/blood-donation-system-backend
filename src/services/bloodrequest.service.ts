@@ -5,3 +5,17 @@ import { Document } from "mongoose";
 export const requestBlood = async (bloodRequest: BloodRequestDto): Promise<Document> => {
     return await BloodRequestSchema.create(bloodRequest);
 }
+
+/*
+export const findRequestByEmail = async (email: string) => {
+    return  BloodRequestSchema.findOne(email)
+};*/
+
+export const findLatestPendingRequestByEmail = async (email: string) => {
+    return BloodRequestSchema.findOne({ requesterEmail: email, status: "pending" }).sort({ createdAt: -1 });
+};
+
+export const getAllRequests = async ():Promise<BloodRequestDto[]> =>{
+    return BloodRequestSchema.find()
+
+}

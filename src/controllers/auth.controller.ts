@@ -49,8 +49,6 @@ export const registerUser = async (req :Request , res: Response) => {
             return;
         }
 
-  /*      const hashedPassword = await bcrypt.hash(newUser.password, 10);
-        newUser.password = hashedPassword;*/
         newUser.password = await bcrypt.hash(newUser.password, 10);
 
         const savedUser = await authService.registerUser(newUser);

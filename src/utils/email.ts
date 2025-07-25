@@ -42,3 +42,27 @@ export const sendRegisterEmail = async (toEmail: string, name: string) => {
         console.error("Email send failed:", err);
     }
 };
+
+export const sendConfirmNotificationEmail = async (toEmail: string, message: string) => {
+    try {
+        await transporter.sendMail({
+            from: `"Blood Donation System" <${process.env.EMAIL_USER}>`,
+            to: toEmail,
+            subject: "Notification from Blood Donation System",
+            html: `
+  <div style="font-family: Arial, sans-serif; background-color: #f6f6f6; padding: 20px;">
+    <div style="max-width: 600px; margin: auto; background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+      <h2 style="color: #e74c3c;">🔔 Notification</h2>
+      <p style="font-size: 16px; color: #333;">${message}</p>
+      <hr style="border: none; border-top: 1px solid #ddd;">
+      <p style="font-size: 13px; color: #777; text-align: center;">
+        This message was sent to you by Blood Donation System.
+      </p>
+    </div>
+  </div>
+`
+        });
+    } catch (err) {
+        console.error("Notification email send failed:", err);
+    }
+}

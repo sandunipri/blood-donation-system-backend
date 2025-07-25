@@ -6,4 +6,5 @@ export interface BloodRequestDto {
     hospitalEmail: string;
     reason: string;
     neededDate: string;
+    status?: "pending" | "confirmed" | "rejected";
 }

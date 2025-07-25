@@ -6,6 +6,7 @@ import hospitalRoutes from "./routes/hospital.routes"
 import {authenticateToken} from "./middleware/auth.middleware";
 import donationRoutes from "./routes/donation.routes";
 import bloodRequestRoutes from "./routes/bloodrequest.routes";
+import notificationRoutes from "./routes/notification.routes";
 
 const app: Express = express();
 
@@ -29,6 +30,7 @@ app.use("/api/auth",authRoutes)
 app.use("/api/user",authenticateToken, userRouter);
 app.use("/api/hospital",authenticateToken,hospitalRoutes)
 app.use("/api/donation",authenticateToken,donationRoutes)
-app.use("/api/request-blood",authenticateToken,bloodRequestRoutes)
+app.use("/api/request-blood", authenticateToken, bloodRequestRoutes);
+app.use("/api/notification",authenticateToken, notificationRoutes);
 
 export default app;
