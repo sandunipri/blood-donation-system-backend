@@ -2,6 +2,7 @@ import {Request, Response} from "express";
 import * as notificationService from "../services/notification.service";
 import {sendConfirmNotificationEmail} from "../utils/email";
 
+
 export const getAllRequestNotification = async (req :Request, res: Response) => {
     try {
         const notificationRequests = await notificationService.getAllRequestsNotification();
@@ -44,6 +45,11 @@ export const rejectNotification = async (req: Request, res: Response) => {
         if (!notification){
             return res.status(404).json({ error: "Notification not found" });
         }
+        //email send
+        await sendConfirmNotificationEmail(
+            email,
+            "Your blood request has been rejected by the admin."
+        );
         res.status(200).json({ message: "Notification rejected", notification });
     }catch (error){
         console.error("Error rejecting notification:", error);
