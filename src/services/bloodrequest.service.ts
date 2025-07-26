@@ -7,7 +7,7 @@ export const requestBlood = async (bloodRequest: BloodRequestDto): Promise<Docum
 }
 
 export const findLatestPendingRequestByEmail = async (email: string) => {
-    return BloodRequestSchema.findOne({ requesterEmail: email, status: "pending" }).sort({ createdAt: -1 });
+    return BloodRequestSchema.findOne({ requesterEmail: email, status: "pending" });
 };
 
 export const getAllRequests = async ():Promise<BloodRequestDto[]> =>{
