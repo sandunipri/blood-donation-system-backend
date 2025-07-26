@@ -53,50 +53,6 @@ export const requestBlood = async (req: Request, res: Response) => {
 
 }
 
-export const confirmBloodRequest = async (req: Request, res: Response) => {
-    const { email } = req.params;
-
-    try {
-        const bloodRequest = await requestBloodService.findLatestPendingRequestByEmail(email);
-        if (!bloodRequest) {
-            return res.status(404).json({ error: "Request not found" });
-        }
-
-        const hospital = await hospitalService.findHospitalByEmail(bloodRequest.hospitalEmail);
-        if (!hospital) {
-            return res.status(404).json({ error: "Hospital not found" });
-        }
-
-        const bloodStock = hospital.bloodStock.find(
-            (stock) => stock.bloodType === bloodRequest.bloodGroup
-        );
-
-        if (!bloodStock || bloodStock.quantity < bloodRequest.unitsNeeded) {
-            return res.status(400).json({ error: "Not enough stock" });
-        }
-
-        bloodStock.quantity -= bloodRequest.unitsNeeded;
-        await hospital.save();
-
-        bloodRequest.status = "confirmed";
-        await bloodRequest.save();
-
-        await Notification.create({
-            message: `Your blood request for ${bloodRequest.unitsNeeded} units of ${bloodRequest.bloodGroup} has been approved.`,
-            type: "confirmation",
-            role: "user",
-            userEmail: bloodRequest.requesterEmail,
-            isRead: false
-        });
-
-        return res.status(200).json({ message: "Request confirmed and user notified." });
-
-    } catch (error) {
-        console.error("Error confirming blood request:", error);
-        return res.status(500).json({ error: "An error occurred while confirming the request." });
-    }
-};
-
 export const getAllRequests = async (req :Request, res: Response) => {
     try {
         const notificationRequests = await requestBloodService.getAllRequests();

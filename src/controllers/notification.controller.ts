@@ -1,6 +1,8 @@
 import {Request, Response} from "express";
 import * as notificationService from "../services/notification.service";
 import {sendConfirmNotificationEmail} from "../utils/email";
+import * as requestBloodService from "../services/bloodrequest.service";
+import * as hospitalService from "../services/hospital.service";
 
 
 export const getAllRequestNotification = async (req :Request, res: Response) => {
@@ -18,18 +20,42 @@ export const getAllRequestNotification = async (req :Request, res: Response) => 
 }
 
 export const confirmNotification = async (req: Request, res: Response) => {
+    const {email} = req.params;
+
     try {
-        const {email} = req.params;
         const notification = await notificationService.findNotificationByEmail(email);
+
         if (!notification){
             return res.status(404).json({ error: "Notification not found" });
         }
+        const bloodRequest = await requestBloodService.findLatestPendingRequestByEmail(email);
+        if (!bloodRequest) {
+            return res.status(404).json({ error: "Request not found" });
+        }
+
+        const hospital = await hospitalService.findHospitalByEmail(bloodRequest.hospitalEmail);
+        if (!hospital) {
+            return res.status(404).json({ error: "Hospital not found" });
+        }
+
+        const bloodStock = hospital.bloodStock.find(
+            (stock) => stock.bloodType === bloodRequest.bloodGroup
+        );
+
+        if (!bloodStock || bloodStock.quantity < bloodRequest.unitsNeeded) {
+            return res.status(400).json({ error: "Not enough stock" });
+        }
+
 
         //email send
         await sendConfirmNotificationEmail(
             email,
             "Your blood request has been confirmed by the admin."
         );
+
+        bloodStock.quantity -= bloodRequest.unitsNeeded;
+        await hospital.save();
+
 
         res.status(200).json({ message: "Notification confirmed", notification });
     }catch (error){
