@@ -21,4 +21,7 @@ export const getDonationHistory = async (email: string): Promise<DonationRecordD
     return Donation.find({ donorEmail: email });
 };
 
+export const getDonationRecordByEmail = async (email: string): Promise<DonationRecordDto | null> => {
+   return Donation.findOne({ donorEmail: email });
 
+}
