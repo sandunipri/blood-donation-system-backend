@@ -86,7 +86,7 @@ export const getDonationRecords = async (req: Request, res: Response) => {
     }
 }
 
-export const getDonationRecordByEmail = async (req: Request, res: Response) => {
+/*export const getDonationRecordByEmail = async (req: Request, res: Response) => {
     const { email } = req.params;
     try {
         const records = await donationService.getDonationHistory(email);
@@ -98,4 +98,4 @@ export const getDonationRecordByEmail = async (req: Request, res: Response) => {
         console.error("Error fetching donation record by email:", error);
         res.status(500).json({ error: "Server error retrieving donation record" });
     }
-}
+}*/
