@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import * as notificationService from "../services/notification.service";
-import {sendConfirmNotificationEmail} from "../utils/email";
+import {sendConfirmNotificationEmail, sendRejectNotificationEmail} from "../utils/email";
 import * as requestBloodService from "../services/bloodrequest.service";
 import * as hospitalService from "../services/hospital.service";
 
@@ -72,7 +72,7 @@ export const rejectNotification = async (req: Request, res: Response) => {
             return res.status(404).json({ error: "Notification not found" });
         }
         //email send
-        await sendConfirmNotificationEmail(
+        await sendRejectNotificationEmail(
             email,
             "Your blood request has been rejected by the admin."
         );
