@@ -20,3 +20,5 @@ export const validateDonation = (donation: DonationRecordDto) => {
 export const getDonationHistory = async (email: string): Promise<DonationRecordDto[]> => {
     return Donation.find({ donorEmail: email });
 };
+
+

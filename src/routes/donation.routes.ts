@@ -1,6 +1,6 @@
 import {Router} from "express";
 import {authorizeRoles} from "../middleware/auth.middleware";
-import {donateBlood ,getDonationRecords} from "../controllers/donation.controller";
+import {donateBlood, getDonationRecords,} from "../controllers/donation.controller";
 
 const donationRoutes : Router = Router();
 
