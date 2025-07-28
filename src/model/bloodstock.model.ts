@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
 const BloodStockSchema = new mongoose.Schema({
-    bloodType: {
+    bloodGroup: {
         type: String,
         required: true,
         enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
     },
-    quantity: {
+    units: {
         type: Number,
         required: true,
         min: 0,

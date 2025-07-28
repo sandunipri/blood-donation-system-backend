@@ -25,10 +25,10 @@ export const requestBlood = async (req: Request, res: Response) => {
         }
 
         const bloodStock = hospital.bloodStock.find(
-            (stock) => stock.bloodType === bloodRequest.bloodGroup
+            (stock) => stock.bloodGroup === bloodRequest.bloodGroup
         )
 
-        if (!bloodStock || bloodStock.quantity < bloodRequest.unitsNeeded) {
+        if (!bloodStock || bloodStock.units < bloodRequest.unitsNeeded) {
             return res.status(400).json({
                 error: `Requested blood  is not available in sufficient quantity at this hospital.`,
             });

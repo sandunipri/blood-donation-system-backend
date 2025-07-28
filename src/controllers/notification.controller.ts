@@ -39,10 +39,10 @@ export const confirmNotification = async (req: Request, res: Response) => {
         }
 
         const bloodStock = hospital.bloodStock.find(
-            (stock) => stock.bloodType === bloodRequest.bloodGroup
+            (stock) => stock.bloodGroup === bloodRequest.bloodGroup
         );
 
-        if (!bloodStock || bloodStock.quantity < bloodRequest.unitsNeeded) {
+        if (!bloodStock || bloodStock.units < bloodRequest.unitsNeeded) {
             return res.status(400).json({ error: "Not enough stock" });
         }
 
@@ -53,7 +53,7 @@ export const confirmNotification = async (req: Request, res: Response) => {
             "Your blood request has been confirmed by the admin."
         );
 
-        bloodStock.quantity -= bloodRequest.unitsNeeded;
+        bloodStock.units -= bloodRequest.unitsNeeded;
         await hospital.save();
 
 

@@ -31,10 +31,10 @@ export const donateBlood = async (req : Request , res : Response) => {
 
         //update blood stock in hospital
         const existBloodStock = hospital.bloodStock.find(
-            (stock) => stock.bloodType === donationRecord.bloodGroup
+            (stock) => stock.bloodGroup === donationRecord.bloodGroup
         )
         if (existBloodStock) {
-            existBloodStock.quantity += donationRecord.unitsDonated;
+            existBloodStock.units += donationRecord.unitsDonated;
         }else {
             hospital.bloodStock.push({
                 bloodType: donationRecord.bloodGroup,

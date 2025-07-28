@@ -28,13 +28,13 @@ export const getAllBloodStocks = async (): Promise<BloodStock[]> => {
     const allStocks = hospitals.flatMap(hospital => hospital.bloodStock);
 
     const allBloodStock = allStocks.reduce<BloodStock[]>((blood, stock) => {
-        const existing = blood.find(item => item.bloodGroup === stock.bloodType);
+        const existing = blood.find(item => item.bloodGroup === stock.bloodGroup);
         if (existing) {
-            existing.units += stock.quantity;
+            existing.units += stock.units;
         } else {
             blood.push({
-                bloodGroup: stock.bloodType as BloodStock["bloodGroup"],
-                units: stock.quantity,
+                bloodGroup: stock.bloodGroup as BloodStock["bloodGroup"],
+                units: stock.units,
             });
         }
         return blood;
