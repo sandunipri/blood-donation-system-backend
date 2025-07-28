@@ -45,3 +45,7 @@ export const getAllRecipient = async (role : string): Promise<UserDto[]> => {
 export const getAllUsers = async (): Promise<UserDto[]> => {
     return User.find();
 }
+
+export const getAllUserCount = async (): Promise<number> => {
+    return User.countDocuments();
+}

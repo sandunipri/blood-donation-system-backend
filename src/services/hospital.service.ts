@@ -42,5 +42,10 @@ export const getAllBloodStocks = async (): Promise<BloodStock[]> => {
     return allBloodStock;
 };
 
+export const getAllHospitalCount = async (): Promise<number> => {
+    return Hospital.countDocuments();
+
+}
+
 
 

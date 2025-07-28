@@ -1,3 +1,4 @@
+
 import {BloodRequestDto} from "../dto/bloodrequest.dto";
 import BloodRequestSchema from "../model/bloodrequest.model";
 import { Document } from "mongoose";
@@ -13,5 +14,9 @@ export const findLatestPendingRequestByEmail = async (email: string) => {
 export const getAllRequests = async ():Promise<BloodRequestDto[]> =>{
     return BloodRequestSchema.find()
 
+}
+
+export const getAllRequestCount = async ():Promise<number> =>{
+    return BloodRequestSchema.countDocuments({status: "pending"});
 }
 

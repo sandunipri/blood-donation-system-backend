@@ -30,7 +30,6 @@ export const getAllHospital = async (req: Request, res: Response) => {
     }
 }
 
-
 export const getBloodStockController = async (req: Request, res: Response) => {
     try {
         const stock = await getAllBloodStocks();
@@ -40,3 +39,13 @@ export const getBloodStockController = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Failed to retrieve blood stock" });
     }
 };
+
+export const getAllHospitalCount = async (req: Request, res: Response) => {
+    try {
+        const count = await hospitalService.getAllHospitalCount();
+        res.status(200).json({ count });
+    } catch (error) {
+        console.error("Error fetching hospital count:", error);
+        res.status(500).json({ error: "Something went wrong while fetching hospital count" });
+    }
+}

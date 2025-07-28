@@ -66,3 +66,17 @@ export const getAllRequests = async (req :Request, res: Response) => {
         res.status(500).json({ error: "Something went wrong while adding the hospital" });
     }
 }
+
+export const getAllRequestCount = async (req: Request, res: Response) => {
+    try {
+        const requestCount = await requestBloodService.getAllRequestCount();
+        if (requestCount === 0) {
+            return res.status(404).json({ message: "No blood requests found" });
+        }
+        res.status(200).json({ count: requestCount });
+    } catch (error) {
+        console.error("Error fetching blood request count:", error);
+        res.status(500).json({ error: "An error occurred while fetching the blood request count" });
+    }
+
+}

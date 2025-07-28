@@ -87,3 +87,16 @@ export const getAllUsers = async (req: Request, res: Response) => {
         res.status(500).json({error: "Something went wrong while fetching users"});
     }
 }
+
+export const getAllUserCount = async (req: Request, res: Response) => {
+    try {
+        const userCount = await userService.getAllUserCount();
+        if (userCount === 0) {
+            return res.status(404).json({message: "No users found"});
+        }
+        res.status(200).json({count: userCount});
+    } catch (error) {
+        console.log("Error in fetching user count:", error);
+        res.status(500).json({error: "Something went wrong while fetching user count"});
+    }
+}
