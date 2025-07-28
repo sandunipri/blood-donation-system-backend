@@ -53,5 +53,8 @@ export const validateUser = (user : UserDto) => {
 
 export const getAllDonors = async (role : string): Promise<UserDto[]> => {
     return User.find({ role: role });
+}
 
+export const getAllRecipient = async (role : string): Promise<UserDto[]> => {
+    return User.find({role: role});
 }

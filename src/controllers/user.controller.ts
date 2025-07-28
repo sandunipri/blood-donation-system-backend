@@ -98,3 +98,16 @@ export const getAllDonors = async (req: Request, res: Response) => {
     }
 
 }
+
+export const getAllRecipient = async (req: Request, res: Response) => {
+    try {
+        const recipient = await userService.getAllRecipient("recipient");
+        if (!recipient || recipient.length === 0) {
+            return res.status(404).json({message: "No recipients found"});
+        }
+        res.status(200).json(recipient);
+    }catch (error){
+        console.log("Error in fetching recipients:", error);
+        res.status(500).json({error: "Something went wrong while fetching recipients"});
+    }
+}
