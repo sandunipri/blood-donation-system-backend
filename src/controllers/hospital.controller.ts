@@ -1,5 +1,5 @@
 import {Response,Request} from "express";
-import {validateHospital} from "../services/hospital.service";
+import {getAllBloodStocks, validateHospital} from "../services/hospital.service";
 import * as hospitalService from "../services/hospital.service";
 
 
@@ -29,3 +29,14 @@ export const getAllHospital = async (req: Request, res: Response) => {
         res.status(500).json({ error: "Something went wrong while fetching hospitals" });
     }
 }
+
+
+export const getBloodStockController = async (req: Request, res: Response) => {
+    try {
+        const stock = await getAllBloodStocks();
+        res.status(200).json(stock);
+    } catch (error) {
+        console.error("Error fetching blood stocks:", error);
+        res.status(500).json({ message: "Failed to retrieve blood stock" });
+    }
+};

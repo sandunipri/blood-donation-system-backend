@@ -1,4 +1,4 @@
 export interface BloodStock {
-    bloodGroup: string; // 'A+', 'A-', 'B+', etc.
+    bloodGroup: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
     units: number;
 }

@@ -1,6 +1,7 @@
 import {HospitalDto} from "../dto/hospital.dto";
 import {Hospital} from "../model/hospital.model";
 import { Document } from "mongoose";
+import {BloodStock} from "../dto/bloodstock.dto";
 
 export const findHospitalByEmail = async (email: string) => {
     return Hospital.findOne({email: email.toLowerCase()});
@@ -20,3 +21,26 @@ export const validateHospital = (hospital: HospitalDto) => {
 export const getAllHospitals = async (): Promise<HospitalDto[]> => {
     return Hospital.find();
 }
+
+export const getAllBloodStocks = async (): Promise<BloodStock[]> => {
+    const hospitals = await Hospital.find({}, "bloodStock");
+
+    const allStocks = hospitals.flatMap(hospital => hospital.bloodStock);
+
+    const allBloodStock = allStocks.reduce<BloodStock[]>((blood, stock) => {
+        const existing = blood.find(item => item.bloodGroup === stock.bloodType);
+        if (existing) {
+            existing.units += stock.quantity;
+        } else {
+            blood.push({
+                bloodGroup: stock.bloodType as BloodStock["bloodGroup"],
+                units: stock.quantity,
+            });
+        }
+        return blood;
+    }, []);
+    return allBloodStock;
+};
+
+
+
