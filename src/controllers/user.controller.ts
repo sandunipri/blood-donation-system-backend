@@ -1,6 +1,7 @@
 import {Response, Request} from "express";
 import * as userService from "../services/user.service";
 import bcrypt from "bcryptjs";
+import {finnOneUser} from "../services/user.service";
 
 export const updateUser = async (req: Request, res: Response) => {
     try {
@@ -100,3 +101,24 @@ export const getAllUserCount = async (req: Request, res: Response) => {
         res.status(500).json({error: "Something went wrong while fetching user count"});
     }
 }
+
+export const getUserProfile = async (req: Request, res: Response) => {
+    try {
+        const userEmail = (req as any).user?.email; // email injected from auth middleware
+
+        if (!userEmail) {
+            return res.status(400).json({ message: "User email not found in request." });
+        }
+
+        const user = await userService.finnOneUser(userEmail);
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json({ success: true, data: user });
+    } catch (error) {
+        console.error("Error fetching user profile:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
