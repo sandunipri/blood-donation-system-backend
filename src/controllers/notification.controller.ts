@@ -50,8 +50,9 @@ export const confirmNotification = async (req: Request, res: Response) => {
         //email send
         await sendConfirmNotificationEmail(
             email,
-            "Your blood request has been confirmed by the admin."
+            "Your blood request has been confirmed."
         );
+        /*only one time to confirm*/
 
         bloodStock.units -= bloodRequest.unitsNeeded;
         await hospital.save();
@@ -74,7 +75,7 @@ export const rejectNotification = async (req: Request, res: Response) => {
         //email send
         await sendRejectNotificationEmail(
             email,
-            "Your blood request has been rejected by the admin."
+            "Your blood request has been rejected."
         );
         res.status(200).json({ message: "Notification rejected", notification });
     }catch (error){

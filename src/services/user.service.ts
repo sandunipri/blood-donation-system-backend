@@ -50,14 +50,6 @@ export const getAllUserCount = async (): Promise<number> => {
     return User.countDocuments();
 }
 
-export const getUserProfile = async (email: string): Promise<UserDto | null> => {
-    const user = await User.findOne({ email: email });
-    if (!user) {
-        return null;
-    }
-    return user
-}
-
 export const finnOneUser = async (email: string): Promise<UserDto | null> => {
     return User.findOne({ email: email });
 };
