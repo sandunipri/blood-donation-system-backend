@@ -5,7 +5,7 @@ import {addHospital, getAllHospital, getBloodStockController, getAllHospitalCoun
 const hospitalRoutes : Router = Router();
 
 hospitalRoutes.post("/save",authorizeRoles('admin'),addHospital)
-hospitalRoutes.get("/getAll",authorizeRoles('admin','donor'),getAllHospital)
+hospitalRoutes.get("/getAll",authorizeRoles('admin','donor','recipient'),getAllHospital)
 hospitalRoutes.get("/blood-stocks",authorizeRoles('admin'), getBloodStockController);
 hospitalRoutes.get("/getAllHospitalCount",authorizeRoles('admin'), getAllHospitalCount);
 

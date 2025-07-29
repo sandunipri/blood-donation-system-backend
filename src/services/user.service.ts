@@ -5,6 +5,7 @@ import {DonationRecordDto} from "../dto/donation.dto";
 export const findUserEmail = async (email: string) => {
     return User.findOne({ email: email});
 }
+
 export const findUserBloodGroup = async (bloodGroup : string) => {
     return User.find({ bloodGroup: bloodGroup });
 }
