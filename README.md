@@ -7,6 +7,7 @@ This is the backend server for the Blood Donation & Request Management System. I
 - User registration, authentication, and profile management
 - CRUD operations for donors, recipients, and donation records
 - Hospital data management
+- Send email and Notifications 
 - Secure API endpoints
 - MongoDB integration via Mongoose
 
