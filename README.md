@@ -28,6 +28,6 @@ This is the backend server for the Blood Donation & Request Management System. I
 ### Installation
 
 ```bash
-git clone(https://github.com/sandunipri/blood-donation-system-backend.git)
+git clone https://github.com/sandunipri/blood-donation-system-backend.git
 cd blood-donation-backend
 npm install
